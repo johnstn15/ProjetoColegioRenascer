@@ -61,11 +61,11 @@ public class frmAlunoCadastro extends javax.swing.JDialog {
         modelo.addColumn("E-mail");
 
         tblAluno.getColumnModel().getColumn(0).setPreferredWidth(10);
-        tblAluno.getColumnModel().getColumn(3).setPreferredWidth(50);
-        tblAluno.getColumnModel().getColumn(1).setPreferredWidth(100);
+        tblAluno.getColumnModel().getColumn(1).setPreferredWidth(50);
         tblAluno.getColumnModel().getColumn(2).setPreferredWidth(100);
-        tblAluno.getColumnModel().getColumn(3).setPreferredWidth(30);
-        tblAluno.getColumnModel().getColumn(4).setPreferredWidth(50);
+        tblAluno.getColumnModel().getColumn(3).setPreferredWidth(100);
+        tblAluno.getColumnModel().getColumn(4).setPreferredWidth(30);
+        tblAluno.getColumnModel().getColumn(5).setPreferredWidth(50);
     }
 
     private void ConsultaAluno() {
@@ -99,7 +99,7 @@ public class frmAlunoCadastro extends javax.swing.JDialog {
         txtDataNascimento.setText(new String());
         txtEmail.setText("");
 
-        btnSalvar.setLabel("Salvar");
+        btnSalvar.setLabel("SALVAR");
     }
 
     private void PreencheCampos(int matricula) {
@@ -111,10 +111,10 @@ public class frmAlunoCadastro extends javax.swing.JDialog {
             txtDataNascimento.setText(ConvertaData(alunoModel.getDob()));
             txtEmail.setText(alunoModel.getEmail());
 
-            btnSalvar.setLabel("Editar");
+            btnSalvar.setLabel("EDITAR");
 
         } else {
-            btnSalvar.setLabel("Salvar");
+            btnSalvar.setLabel("SALVAR");
         }
     }
 
@@ -176,14 +176,7 @@ public class frmAlunoCadastro extends javax.swing.JDialog {
 
         jLabel6.setText("E-Mail:");
 
-        tblAluno.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-
-            }
-        ));
+        tblAluno.setModel(modelo);
         tblAluno.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblAlunoMouseClicked(evt);
@@ -309,7 +302,7 @@ public class frmAlunoCadastro extends javax.swing.JDialog {
             alunoModel.setDob(CriarNovaData(txtDataNascimento.getText()));
             alunoModel.setEmail(txtEmail.getText());
             
-            if (btnSalvar.getLabel().equals("Salvar")) {
+            if (btnSalvar.getLabel().equals("SALVAR")) {
                 alunoNegocio.Adicionar(alunoModel);
             } else {
                 alunoNegocio.Alterar(alunoModel);
