@@ -14,6 +14,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -58,11 +61,11 @@ public class frmAlunoCadastro extends javax.swing.JDialog {
         modelo.addColumn("E-mail");
 
         tblAluno.getColumnModel().getColumn(0).setPreferredWidth(10);
-        tblAluno.getColumnModel().getColumn(3).setPreferredWidth(50);
-        tblAluno.getColumnModel().getColumn(1).setPreferredWidth(100);
+        tblAluno.getColumnModel().getColumn(1).setPreferredWidth(50);
         tblAluno.getColumnModel().getColumn(2).setPreferredWidth(100);
-        tblAluno.getColumnModel().getColumn(3).setPreferredWidth(30);
-        tblAluno.getColumnModel().getColumn(4).setPreferredWidth(50);
+        tblAluno.getColumnModel().getColumn(3).setPreferredWidth(100);
+        tblAluno.getColumnModel().getColumn(4).setPreferredWidth(30);
+        tblAluno.getColumnModel().getColumn(5).setPreferredWidth(50);
     }
 
     private void ConsultaAluno() {
@@ -96,7 +99,7 @@ public class frmAlunoCadastro extends javax.swing.JDialog {
         txtDataNascimento.setText(new String());
         txtEmail.setText("");
 
-        btnSalvar.setLabel("Salvar");
+        btnSalvar.setLabel("SALVAR");
     }
 
     private void PreencheCampos(int matricula) {
@@ -108,10 +111,10 @@ public class frmAlunoCadastro extends javax.swing.JDialog {
             txtDataNascimento.setText(ConvertaData(alunoModel.getDob()));
             txtEmail.setText(alunoModel.getEmail());
 
-            btnSalvar.setLabel("Editar");
+            btnSalvar.setLabel("EDITAR");
 
         } else {
-            btnSalvar.setLabel("Salvar");
+            btnSalvar.setLabel("SALVAR");
         }
     }
 
@@ -173,21 +176,34 @@ public class frmAlunoCadastro extends javax.swing.JDialog {
 
         jLabel6.setText("E-Mail:");
 
-        tblAluno.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-
+        tblAluno.setModel(modelo);
+        tblAluno.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblAlunoMouseClicked(evt);
             }
-        ));
+        });
         jScrollPane1.setViewportView(tblAluno);
 
         btnNovo.setText("LIMPAR");
+        btnNovo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNovoActionPerformed(evt);
+            }
+        });
 
         btnSalvar.setText("SALVAR");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
 
         btnExcluir.setText("EXCLUIR");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -270,6 +286,55 @@ public class frmAlunoCadastro extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
+        // TODO add your handling code here:
+        LimparCampos();
+    }//GEN-LAST:event_btnNovoActionPerformed
+
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        // TODO add your handling code here:
+        try {
+            
+            alunoModel.setCpf(txtCPF.getText());
+            alunoModel.setFirstName(txtNome.getText());
+            alunoModel.setLastName(txtSobrenome.getText());
+            alunoModel.setDob(CriarNovaData(txtDataNascimento.getText()));
+            alunoModel.setEmail(txtEmail.getText());
+            
+            if (btnSalvar.getLabel().equals("SALVAR")) {
+                alunoNegocio.Adicionar(alunoModel);
+            } else {
+                alunoNegocio.Alterar(alunoModel);
+            }
+            
+            ConsultaAluno();
+            LimparCampos();
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Atenção!!!", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        // TODO add your handling code here:
+         try {
+            // TODO add your handling code here:
+            alunoNegocio.Remover(alunoNegocio.ObterAlunoPorId(alunoModel.getMatricula()));
+        } catch (Exception ex) {
+            Logger.getLogger(frmAlunoCadastro.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         
+        ConsultaAluno();
+        LimparCampos();
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void tblAlunoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblAlunoMouseClicked
+        // TODO add your handling code here:
+        int linha = tblAluno.getSelectedRow();
+        Integer codigo = (Integer) tblAluno.getValueAt(linha, 0);
+        PreencheCampos((int) codigo);
+    }//GEN-LAST:event_tblAlunoMouseClicked
 
     /**
      * @param args the command line arguments

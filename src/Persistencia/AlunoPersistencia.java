@@ -31,8 +31,8 @@ public class AlunoPersistencia {
     public void InserirAluno(AlunoModel alunoModel){
         try{
             PreparedStatement preparedStatement = 
-                    conexao.prepareStatement("INSERT INTO ALUNOS(cpf, firstName, "
-                            + "lastName, dob, email) VALUES (?, ?, ?, ?, ?)");
+                    conexao.prepareStatement("insert into alunos(cpf, firstname, "
+                            + "lastname, dob, email) values (?, ?, ?, ?, ?)");
             
             preparedStatement.setString(1, alunoModel.getCpf());
             preparedStatement.setString(2, alunoModel.getFirstName());
@@ -48,7 +48,7 @@ public class AlunoPersistencia {
     
     public void ExcluirAluno(int matricula){
         try{
-            PreparedStatement preparedStatement = conexao.prepareStatement("DELETE FROM ALUNOS WHERE matricula=?");
+            PreparedStatement preparedStatement = conexao.prepareStatement("delete from alunos where matricula=?");
             
             preparedStatement.setInt(1, matricula);
             preparedStatement.executeUpdate();
@@ -62,9 +62,9 @@ public class AlunoPersistencia {
         try{
             
             PreparedStatement preparedStatement = 
-                    conexao.prepareStatement("UPDATE ALUNOS SET cpf=?, firstName=?,"
-                            + " lastName=?, dob=?, email=?"
-                            + "WHERE matricula=?");
+                    conexao.prepareStatement("update alunos set cpf=?, firstname=?,"
+                            + " lastname=?, dob=?, email=?"
+                            + "where matricula=?");
             
             preparedStatement.setString(1, alunoModel.getCpf());
             preparedStatement.setString(2, alunoModel.getFirstName());
@@ -85,15 +85,15 @@ public class AlunoPersistencia {
         try {
             
             Statement statement = conexao.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT * FROM ALUNOS");
+            ResultSet rs = statement.executeQuery("select * from alunos");
             
             while (rs.next()) {
                 AlunoModel alunoModel = new AlunoModel();
                 
                 alunoModel.setMatricula(rs.getInt("matricula"));
                 alunoModel.setCpf(rs.getString("cpf"));
-                alunoModel.setFirstName(rs.getString("firstName"));
-                alunoModel.setLastName(rs.getString("lastName"));
+                alunoModel.setFirstName(rs.getString("firstname"));
+                alunoModel.setLastName(rs.getString("lastname"));
                 alunoModel.setDob(rs.getDate("dob"));
                 alunoModel.setEmail(rs.getString("email"));
                 
@@ -113,7 +113,7 @@ public class AlunoPersistencia {
         try {
             
             PreparedStatement preparedStatement = 
-                    conexao.prepareStatement("SELECT * FROM ALUNOS WHERE matricula=?");
+                    conexao.prepareStatement("select * from alunos where matricula=?");
 
             preparedStatement.setInt(1, matricula);
             ResultSet rs = preparedStatement.executeQuery();
@@ -121,8 +121,8 @@ public class AlunoPersistencia {
             if (rs.next()){
                 alunoModel.setMatricula(rs.getInt("matricula"));
                 alunoModel.setCpf(rs.getString("cpf"));
-                alunoModel.setFirstName(rs.getString("firstName"));
-                alunoModel.setLastName(rs.getString("lastName"));
+                alunoModel.setFirstName(rs.getString("firstname"));
+                alunoModel.setLastName(rs.getString("lastname"));
                 alunoModel.setDob(rs.getDate("dob"));
                 alunoModel.setEmail(rs.getString("email"));
             }
