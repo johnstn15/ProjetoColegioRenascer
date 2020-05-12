@@ -121,6 +121,8 @@ public class frmAlunoCadastro extends javax.swing.JDialog {
      */
     public frmAlunoCadastro(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        CriarTblAluno();
+        ConsultaAluno();
         initComponents();
     }
 
@@ -302,7 +304,6 @@ public class frmAlunoCadastro extends javax.swing.JDialog {
             public void run() {
                 frmAlunoCadastro dialog = new frmAlunoCadastro(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
                     }
