@@ -40,6 +40,7 @@ public class ResponsavelPersistencia {
             preparedStatement.setDate(4, new java.sql.Date(responsavelModel.getDob().getTime()));
             preparedStatement.setString(5, responsavelModel.getEmail());
             preparedStatement.setString(6, responsavelModel.getTelefone());
+            preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -110,7 +111,29 @@ public class ResponsavelPersistencia {
     
     public ResponsavelModel ObterResponsavelPorId(int id){
         ResponsavelModel responsavelModel = new ResponsavelModel();
-
+        
+        try {
+        
+            PreparedStatement preparedStatement = 
+                    conexao.prepareStatement("select * from responsavel where id=?");
+            
+            preparedStatement.setInt(1, id);
+            ResultSet rs = preparedStatement.executeQuery();
+            
+            if (rs.next()){
+                responsavelModel.setId(rs.getInt("id"));
+                responsavelModel.setCpf(rs.getString("cpf"));
+                responsavelModel.setFirstName(rs.getString("firstname"));
+                responsavelModel.setLastName(rs.getString("lastname"));
+                responsavelModel.setDob(rs.getDate("dob"));
+                responsavelModel.setEmail(rs.getString("email"));
+                responsavelModel.setTelefone(rs.getString("telefone"));
+            }
+            
+        } catch (SQLException e){        
+            e.printStackTrace();
+        }        
+        
         return responsavelModel;
     }
 }
