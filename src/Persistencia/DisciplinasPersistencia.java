@@ -87,4 +87,10 @@ public class DisciplinasPersistencia {
         
         return disciplinas;
     }
+    
+    public DisciplinasModel ObterDisciplinasPorId(int id){
+        DisciplinasModel disciplina = new DisciplinasModel();
+        
+        return disciplina;
+    }
 }
