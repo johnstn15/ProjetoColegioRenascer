@@ -16,30 +16,30 @@ import java.util.List;
 public class AlunoNegocio {
     
    private static final long serialVersionUID = 1L;
-   private AlunoPersistencia persistencia;
+   private AlunoPersistencia alunoPersistencia;
    
    public AlunoNegocio(){
        super();
-       persistencia = new AlunoPersistencia();
+       alunoPersistencia = new AlunoPersistencia();
    }
    
    public void Adicionar(AlunoModel alunoModel) throws Exception{
-       persistencia.InserirAluno(alunoModel);
+       alunoPersistencia.InserirAluno(alunoModel);
    }
    
    public void Alterar(AlunoModel alunoModel) throws Exception{
-       persistencia.AtualizarAluno(alunoModel);
+       alunoPersistencia.AtualizarAluno(alunoModel);
    }
    
    public void Remover(AlunoModel alunoModel) throws Exception{
-       persistencia.ExcluirAluno(alunoModel.getMatricula());
+       alunoPersistencia.ExcluirAluno(alunoModel.getMatricula());
    }
    
    public List<AlunoModel> ObterConsulta(){
-       return persistencia.ObterTodosAlunos();
+       return alunoPersistencia.ObterTodosAlunos();
    }
    
    public AlunoModel ObterAlunoPorId(int matricula){
-       return persistencia.ObterAlunoPorId(matricula);
+       return alunoPersistencia.ObterAlunoPorId(matricula);
    }
 }

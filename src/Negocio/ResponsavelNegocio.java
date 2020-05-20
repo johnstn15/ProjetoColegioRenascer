@@ -16,31 +16,31 @@ import java.util.List;
 public class ResponsavelNegocio {
 
     private static final long serialVersionUID = 1L;
-    private ResponsavelPersistencia persistencia;
+    private ResponsavelPersistencia responsavelPersistencia;
 
     public ResponsavelNegocio() {
         super();
-        persistencia = new ResponsavelPersistencia();
+        responsavelPersistencia = new ResponsavelPersistencia();
     }
 
     public void Adicionar(ResponsavelModel responsavelModel) throws Exception {
-        persistencia.InserirResponsavel(responsavelModel);
+        responsavelPersistencia.InserirResponsavel(responsavelModel);
     }
 
     public void Alterar(ResponsavelModel responsavelModel) throws Exception {
-        persistencia.AtualizarResponsavel(responsavelModel);
+        responsavelPersistencia.AtualizarResponsavel(responsavelModel);
     }
 
     public void Remover(ResponsavelModel responsavelModel) throws Exception {
-        persistencia.ExcluirResponsavel(responsavelModel.getId());
+        responsavelPersistencia.ExcluirResponsavel(responsavelModel.getId());
     }
 
     public List<ResponsavelModel> ObterConsulta() {
-        return persistencia.ObterTodosResponsaveis();
+        return responsavelPersistencia.ObterTodosResponsaveis();
     }
 
     public ResponsavelModel ObterResponsavelPorId(int id) {
-        return persistencia.ObterResponsavelPorId(id);
+        return responsavelPersistencia.ObterResponsavelPorId(id);
     }
 
 }
