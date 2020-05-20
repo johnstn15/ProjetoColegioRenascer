@@ -125,6 +125,6 @@ public class ResponsavelModel {
                 + ", firstName=" + firstName + ", lastName="
                 + lastName + ", dob=" + dob + ", email="
                 + email + ", telefone=" + telefone + "]";
-    }
+    }   
     
 }
